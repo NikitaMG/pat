@@ -3,19 +3,21 @@ package PatShelter.Controller;
 import PatShelter.model.Animal;
 import PatShelter.service.AnimalS;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 @RestController()
 @RequestMapping("/animal")
-public class AnimalC {
+public class AnimalController {
     private final AnimalS animalService;
     @Autowired
-    public AnimalC(AnimalS animalService) {
+    public AnimalController(AnimalS animalService) {
         this.animalService = animalService;
     }
 
     @GetMapping("/{id}")
+    @Cacheable(value = "animalID")
     public Animal getAnimal(@PathVariable int id) {
         Animal animal = animalService.getAnimal(id).orElse(null);
         if (animal == null) {
@@ -31,7 +33,6 @@ public class AnimalC {
         }
         return animal1;
     }
-
     @PutMapping
     public Animal addAnimal(@RequestBody Animal animal){
         animal = animalService.addAnimal(animal);
@@ -40,7 +41,6 @@ public class AnimalC {
         }
         return animal;
     }
-
     @DeleteMapping("/{id}")
     public Animal removeAnimal(@PathVariable int id) {
         Animal animal = animalService.removeAnimal(id);
@@ -49,5 +49,4 @@ public class AnimalC {
         }
         return animal;
     }
-
 }
