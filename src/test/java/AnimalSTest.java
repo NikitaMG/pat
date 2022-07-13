@@ -20,7 +20,7 @@ class AnimalSTest {
             Species.DOG,
             Gender.FEMALE,
             10,
-            "Shainy"
+            "Shayne"
     );
     private final Animal petro = new Animal(
             2,
