@@ -1,19 +1,19 @@
 package PatShelter.service;
 
 import PatShelter.model.Animal;
-import PatShelter.repository.AnimalRep;
+import PatShelter.repository.AnimalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class AnimalS {
+public class AnimalService {
 
-    private final AnimalRep animalRepository;
+    private final AnimalRepository animalRepository;
 
     @Autowired
-    public AnimalS(AnimalRep animalRepository) {
+    public AnimalService(AnimalRepository animalRepository) {
         this.animalRepository = animalRepository;
     }
 

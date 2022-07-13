@@ -1,19 +1,19 @@
 package PatShelter.service;
 
 import PatShelter.model.Person;
-import PatShelter.repository.PersonRep;
+import PatShelter.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
-public class PersonS {
+public class PersonService {
 
-    private final PersonRep personRepository;
+    private final PersonRepository personRepository;
 
     @Autowired
-    public PersonS(PersonRep personRepository) {
+    public PersonService(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
 
