@@ -2,58 +2,42 @@ package PatShelter.repository;
 
 import PatShelter.model.Gender;
 import PatShelter.model.Person;
-import org.jetbrains.annotations.NotNull;
+import org.springframework.data.jdbc.repository.query.Modifying;
+import org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Repository
-public class PersonRep {
+public interface PersonRep extends CrudRepository<Person, Integer> {
 
-    private final List<Person> personList = new ArrayList<>();
+    @Modifying
+    @Query("INSERT INTO public.person(person_name, person_surname, person_age, person_gender) " +
+            "VALUES (:1, :2, :3, :4::gender)")
+   void addPerson(
+            @Param("1") String personName,
+            @Param("2") String personSurname,
+            @Param("3") int personAge,
+            @Param("4") Gender personGender
+    );
 
-    public PersonRep() {
-        int index;
-        index = 0;
-        personList.add(new Person(index, "Eugeniy", "Smit", 32, Gender.MALE));
-        index = personList.size();
-        personList.add(new Person(index, "Bob", "Bobenko", 12, Gender.MALE));
-        index = personList.size();
-        personList.add(new Person(index, "Kate", "Elwins", 18, Gender.FEMALE));
-        index = personList.size();
-        personList.add(new Person(index, "Ann", "Price", 19, Gender.FEMALE));
-    }
+    @Query("SELECT * FROM person WHERE person_name ILIKE :1 AND person_surname ILIKE :2 " +
+            "AND person_age = :3 AND person_gender = :4::gender")
+     Person personIsExists(
+            @Param("1") String personName,
+            @Param("2") String personSurname,
+            @Param("3") int personAge,
+            @Param("4") Gender personGender
+    );
 
-    public Person getPerson(int id) {
-        try {
-            return personList.get(id);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
-    }
-
-    public Person addPerson(@NotNull Person person) {
-        int index = getPerson(personList.size() - 1).getPersonID() + 1;
-        person.setPersonID(index);
-        personList.add(person);
-        return getPerson(personList.size() - 1);
-    }
-
-    public Person updatePerson(@NotNull Person person) {
-        int index = person.getPersonID();
-        try {
-            return personList.set(index, person);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
-    }
-
-    public Person removePerson(int id) {
-        try {
-            return personList.remove(id);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
-    }
+    @Modifying
+    @Query("UPDATE person SET person_name = :1, person_surname = :2, person_age = :3, " +
+            "person_gender = :4::gender WHERE person_id = :5")
+    void updatePerson(
+            @Param("1") String personName,
+            @Param("2") String personSurname,
+            @Param("3") int personAge,
+            @Param("4") Gender personGender,
+            @Param("5") Integer personID
+    );
 }
