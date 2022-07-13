@@ -3,66 +3,43 @@ package PatShelter.repository;
 import PatShelter.model.Animal;
 import PatShelter.model.Gender;
 import PatShelter.model.Species;
-import org.jetbrains.annotations.NotNull;
+import org.springframework.data.jdbc.repository.query.Modifying;
+import org.springframework.data.jdbc.repository.query.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Repository
-public class AnimalRep {
+public interface AnimalRep extends CrudRepository<Animal, Integer> {
 
-    private List<Animal> animalList = new ArrayList<>();
+    @Modifying
+    @Query("INSERT INTO public.animal(species, animal_gender, animal_age, animal_name) " +
+            "VALUES (:1::species, :2::gender, :3, :4)")
+     void addAnimal(
+            @Param("1") Species species,
+            @Param("2") Gender gender,
+            @Param("3") int age,
+            @Param("4") String name
+    );
 
-    public AnimalRep() {
-        int index;
-        index = animalList.size();
-        animalList.add(new Animal(index, Species.CAT, Gender.MALE, 1, "Dopi"));
-        index = animalList.size();
-        animalList.add(new Animal(index, Species.CAT, Gender.FEMALE, 2, "Manya"));
-        index = animalList.size();
-        animalList.add(new Animal(index, Species.CAT, Gender.MALE, 3, "Dublin"));
-        index = animalList.size();
-        animalList.add(new Animal(index, Species.CAT, Gender.FEMALE, 4, "Misty"));
-        index = animalList.size();
-        animalList.add(new Animal(index, Species.DOG, Gender.MALE, 5, "Bobik"));
-        index = animalList.size();
-        animalList.add(new Animal(index, Species.DOG, Gender.FEMALE, 6, "Marta"));
-        index = animalList.size();
-        animalList.add(new Animal(index, Species.DOG, Gender.MALE, 7, "Poko"));
-        index = animalList.size();
-        animalList.add(new Animal(index, Species.DOG, Gender.FEMALE, 8, "Milka"));
-    }
+    @Query("SELECT * FROM animal WHERE species = :1::species AND animal_gender = :2::gender " +
+            "AND animal_age = :3 AND animal_name ILIKE :4")
+    Animal animalIsExists(
+            @Param("1") Species species,
+            @Param("2") Gender gender,
+            @Param("3") int age,
+            @Param("4") String name
+    );
 
-    public Animal getAnimal(int id) {
-        try {
-            return animalList.get(id);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
-    }
 
-    public Animal addAnimal(@NotNull Animal animal) {
-        int index = getAnimal(animalList.size() - 1).getAnimalID() + 1;
-        animal.setAnimalID(index);
-        animalList.add(animal);
-        return getAnimal(animalList.size() - 1);
-    }
-
-    public Animal updateAnimal(@NotNull Animal animal) {
-        int index = animal.getAnimalID();
-        try {
-            return animalList.set(index, animal);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
-    }
-
-    public Animal removeAnimal(int id) {
-        try {
-            return animalList.remove(id);
-        } catch (IndexOutOfBoundsException e) {
-            return null;
-        }
-    }
+    @Modifying
+    @Query("UPDATE animal SET species = :1::species, animal_gender = :2::gender, animal_age = :3, " +
+            "animal_name = :4 WHERE animal_id = :5")
+    void updateAnimal(
+            @Param("1") Species species,
+            @Param("2") Gender gender,
+            @Param("3") int age,
+            @Param("4") String name,
+            @Param("5") Integer animalID
+    );
 }
