@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PersonRep extends CrudRepository<Person, Integer> {
+public interface PersonRepository extends CrudRepository<Person, Integer> {
 
     @Modifying
     @Query("INSERT INTO public.person(person_name, person_surname, person_age, person_gender) " +
