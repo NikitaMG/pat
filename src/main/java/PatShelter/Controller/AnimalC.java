@@ -1,7 +1,7 @@
 package PatShelter.Controller;
 
 import PatShelter.model.Animal;
-import PatShelter.service.AnimalService;
+import PatShelter.service.AnimalS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -9,11 +9,11 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController()
 @RequestMapping("/animal")
-public class AnimalController {
-    private final AnimalService animalService;
+public class AnimalC {
+    private final AnimalS animalService;
 
     @Autowired
-    public AnimalController(AnimalService animalService) {
+    public AnimalC(AnimalS animalService) {
         this.animalService = animalService;
     }
 

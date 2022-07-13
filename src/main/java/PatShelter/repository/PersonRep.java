@@ -9,20 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class PersonRepository {
+public class PersonRep {
 
-    private List<Person> personList = new ArrayList<>();
+    private final List<Person> personList = new ArrayList<>();
 
-    public PersonRepository() {
+    public PersonRep() {
         int index;
+        index = 0;
+        personList.add(new Person(index, "Eugeniy", "Smit", 32, Gender.MALE));
         index = personList.size();
-        personList.add(new Person(index, "Robert", "Price", 16, Gender.MALE));
+        personList.add(new Person(index, "Bob", "Bobenko", 12, Gender.MALE));
         index = personList.size();
-        personList.add(new Person(index, "Mary", "Wilson", 20, Gender.FEMALE));
+        personList.add(new Person(index, "Kate", "Elwins", 18, Gender.FEMALE));
         index = personList.size();
-        personList.add(new Person(index, "Daniel", "Elliott", 27, Gender.MALE));
-        index = personList.size();
-        personList.add(new Person(index, "Eric", "Grant", 23, Gender.MALE));
+        personList.add(new Person(index, "Ann", "Price", 19, Gender.FEMALE));
     }
 
     public Person getPerson(int id) {

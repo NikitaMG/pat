@@ -10,28 +10,28 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AnimalRepository {
+public class AnimalRep {
 
     private List<Animal> animalList = new ArrayList<>();
 
-    public AnimalRepository() {
+    public AnimalRep() {
         int index;
         index = animalList.size();
-        animalList.add(new Animal(index, Species.CAT, Gender.FEMALE, 3, "Sakura"));
+        animalList.add(new Animal(index, Species.CAT, Gender.MALE, 1, "Dopi"));
         index = animalList.size();
-        animalList.add(new Animal(index, Species.CAT, Gender.MALE, 1, "Greedo"));
+        animalList.add(new Animal(index, Species.CAT, Gender.FEMALE, 2, "Manya"));
         index = animalList.size();
-        animalList.add(new Animal(index, Species.CAT, Gender.MALE, 1, "Jay"));
+        animalList.add(new Animal(index, Species.CAT, Gender.MALE, 3, "Dublin"));
         index = animalList.size();
-        animalList.add(new Animal(index, Species.CAT, Gender.FEMALE, 1, "MIla"));
+        animalList.add(new Animal(index, Species.CAT, Gender.FEMALE, 4, "Misty"));
         index = animalList.size();
-        animalList.add(new Animal(index, Species.DOG, Gender.FEMALE, 2, "Willow"));
+        animalList.add(new Animal(index, Species.DOG, Gender.MALE, 5, "Bobik"));
         index = animalList.size();
-        animalList.add(new Animal(index, Species.DOG, Gender.FEMALE, 3, "Snow White"));
+        animalList.add(new Animal(index, Species.DOG, Gender.FEMALE, 6, "Marta"));
         index = animalList.size();
-        animalList.add(new Animal(index, Species.DOG, Gender.MALE, 6, "Ryder"));
+        animalList.add(new Animal(index, Species.DOG, Gender.MALE, 7, "Poko"));
         index = animalList.size();
-        animalList.add(new Animal(index, Species.DOG, Gender.MALE, 3, "Remi"));
+        animalList.add(new Animal(index, Species.DOG, Gender.FEMALE, 8, "Milka"));
     }
 
     public Animal getAnimal(int id) {

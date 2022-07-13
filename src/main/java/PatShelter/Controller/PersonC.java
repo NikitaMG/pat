@@ -1,7 +1,7 @@
 package PatShelter.Controller;
 
 import PatShelter.model.Person;
-import PatShelter.service.PersonService;
+import PatShelter.service.PersonS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,12 +10,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 @RestController()
 @RequestMapping("/person")
-public class PersonController {
+public class PersonC {
 
-    private final PersonService personService;
+    private final PersonS personService;
 
     @Autowired
-    public PersonController(PersonService personService) {
+    public PersonC(PersonS personService) {
         this.personService = personService;
     }
 
