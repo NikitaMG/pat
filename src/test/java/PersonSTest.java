@@ -16,7 +16,7 @@ class PersonSTest {
 
     private final Person mike = new Person(
             1,
-            "Mike",
+            "Mikey",
             "Vazovsky",
             21,
             Gender.MALE
