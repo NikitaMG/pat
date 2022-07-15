@@ -10,7 +10,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AnimalRep extends CrudRepository<Animal, Integer> {
+public interface AnimalRepository extends CrudRepository<Animal, Integer> {
 
     @Modifying
     @Query("INSERT INTO public.animal(species, animal_gender, animal_age, animal_name) " +
